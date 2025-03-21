@@ -29,7 +29,7 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(000);
   
   image(earsImg, 0, 0, 400, 400)
   image(headImg, 0, 0, 400, 400)
