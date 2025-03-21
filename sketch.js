@@ -36,6 +36,7 @@ function draw() {
   image(eyesImg, 0, 0, 400, 400)
   image(nosesImg, 0, 0, 400, 400)
   image(mouthImg, 0, 0, 400, 400)
+  image(browsImg, 0, 0, 400, 400)
   image(hairImg, 0, 0, 400, 400)
   image(beardImg, 0, 0, 400, 400)
 }
