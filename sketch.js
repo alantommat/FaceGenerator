@@ -24,6 +24,7 @@ function draw() {
   background(255);
   resizeCanvas(canvasSize, canvasSize); // Resize the canvas dynamically
 
+  // Only display images if they are loaded
   if (earsImg) image(earsImg, 0, 0, canvasSize, canvasSize);
   if (headImg) image(headImg, 0, 0, canvasSize, canvasSize);
   if (showBrows && browsImg) image(browsImg, 0, 0, canvasSize, canvasSize);
@@ -85,6 +86,8 @@ function createUI() {
   sizeSlider.input(() => {
     canvasSize = sizeSlider.value();
   });
+
+  styleUI();
 }
 
 // Helper function to create dropdowns
@@ -93,9 +96,9 @@ function createDropdown(label, options, x, y, includeNone = false) {
   select.position(x, y);
 
   if (includeNone) select.option("None");
-
   options.forEach(img => select.option(img));
 
+  // Update the selected image based on the dropdown choice
   select.changed(() => {
     let selected = select.value();
     selectedImages[label] = selected;
@@ -109,8 +112,16 @@ function createDropdown(label, options, x, y, includeNone = false) {
     } else if (label === "facialhair") {
       showBeard = selected !== "None";
       beardImg = showBeard ? loadImage("images/" + selected) : null;
-    } else {
-      window[label + "Img"] = loadImage("images/" + selected);
+    } else if (label === "ears") {
+      earsImg = loadImage("images/" + selected);
+    } else if (label === "head") {
+      headImg = loadImage("images/" + selected);
+    } else if (label === "eyes") {
+      eyesImg = loadImage("images/" + selected);
+    } else if (label === "noses") {
+      nosesImg = loadImage("images/" + selected);
+    } else if (label === "mouths") {
+      mouthImg = loadImage("images/" + selected);
     }
   });
 
