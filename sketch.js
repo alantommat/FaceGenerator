@@ -18,7 +18,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400); // Initial canvas size
 }
 
 function draw() {
@@ -26,19 +26,22 @@ function draw() {
 
   // Get the scale factor from the slider
   let scaleFactor = scaleSlider.value();
-  
-  // Apply scaling for everything being drawn
-  scale(scaleFactor);
 
-  // Draw images as usual
-  if (earsImg) image(earsImg, 0, 0, 400, 400);
-  if (headImg) image(headImg, 0, 0, 400, 400);
-  if (showBrows && browsImg) image(browsImg, 0, 0, 400, 400);
-  if (eyesImg) image(eyesImg, 0, 0, 400, 400);
-  if (nosesImg) image(nosesImg, 0, 0, 400, 400);
-  if (mouthImg) image(mouthImg, 0, 0, 400, 400);
-  if (showHair && hairImg) image(hairImg, 0, 0, 400, 400);
-  if (showBeard && beardImg) image(beardImg, 0, 0, 400, 400);
+  // Resize the canvas based on the scale factor
+  let canvasSize = map(scaleFactor, 0.05, 5, 200, 2000); // Map scale value to canvas size range
+  resizeCanvas(canvasSize, canvasSize);
+
+  // Draw images, scaled appropriately
+  let imageSize = canvasSize / 2; // Adjust images to fit within canvas
+
+  if (earsImg) image(earsImg, 0, 0, imageSize, imageSize);
+  if (headImg) image(headImg, 0, 0, imageSize, imageSize);
+  if (showBrows && browsImg) image(browsImg, 0, 0, imageSize, imageSize);
+  if (eyesImg) image(eyesImg, 0, 0, imageSize, imageSize);
+  if (nosesImg) image(nosesImg, 0, 0, imageSize, imageSize);
+  if (mouthImg) image(mouthImg, 0, 0, imageSize, imageSize);
+  if (showHair && hairImg) image(hairImg, 0, 0, imageSize, imageSize);
+  if (showBeard && beardImg) image(beardImg, 0, 0, imageSize, imageSize);
 }
 
 // Load random images initially
