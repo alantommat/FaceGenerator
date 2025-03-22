@@ -25,10 +25,13 @@ function setup() {
 function draw() {
   background(255);
 
-  // Update the canvas size based on the slider value
-  let drawSize = canvasSize * scaleSlider.value(); // New draw size from slider
+  // Get the scale factor from the slider
+  let scaleFactor = scaleSlider.value();
 
-  // Draw images if they exist and apply the scaling
+  // Calculate the draw size for images
+  let drawSize = canvasSize * scaleFactor;
+
+  // Draw images and scale them to fit within the canvas
   if (earsImg) image(earsImg, 0, 0, drawSize, drawSize);
   if (headImg) image(headImg, 0, 0, drawSize, drawSize);
   if (showBrows && browsImg) image(browsImg, 0, 0, drawSize, drawSize);
