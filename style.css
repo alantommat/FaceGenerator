@@ -9,7 +9,7 @@ canvas {
 /* Style dropdowns */
 select {
   font-size: 16px;
-  padding: 10px;
+  padding: 5px;
   border-radius: 5px;
   border: 1px solid #333;
   background-color: #f8f8f8;
@@ -34,5 +34,6 @@ button:hover {
 /* Style the slider */
 input[type="range"] {
   width: 300px;
+    padding: 5px;
   accent-color: #3498db;
 }
