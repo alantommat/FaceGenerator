@@ -9,7 +9,7 @@ canvas {
 /* Style dropdowns */
 select {
   font-size: 16px;
-  padding: 5px;
+  padding: 10px;
   border-radius: 5px;
   border: 1px solid #333;
   background-color: #f8f8f8;
@@ -22,13 +22,13 @@ button {
   padding: 8px 15px;
   border-radius: 5px;
   border: none;
-  background-color: #3498db;
+  background-color: #82e2ff;
   color: white;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #2980b9;
+  background-color: #ffd60a;
 }
 
 /* Style the slider */
