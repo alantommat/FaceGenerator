@@ -31,7 +31,7 @@ function setup() {
       beardImg = loadImage("images/" + random(files.facialhair));
     }
     // 90% chance to load the brows
-    showBrows = random() < 0.9; 
+    showBrows = random() < 0.93; 
     if (showBrows) {
       browsImg = loadImage("images/" + random(files.brows));
     }
