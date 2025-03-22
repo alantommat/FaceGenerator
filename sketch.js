@@ -8,7 +8,7 @@ let nosesImg
 let mouthImg
 let hairImg
 let beardImg
-let showBeard; // Boolean to determine if a beard should be shown
+let showBeard, showBrows; // Boolean to determine if a beard and brows should be shown
 
 function preload(){
   files = loadJSON("images/image-files.json");
@@ -30,7 +30,11 @@ function setup() {
     if (showBeard) {
       beardImg = loadImage("images/" + random(files.facialhair));
     }
-  
+    // 90% chance to load the brows
+    showBrows = random() < 0.9; 
+    if (showBrows) {
+      browsImg = loadImage("images/" + random(files.brows));
+    }
 }
 
 function draw() {
@@ -38,7 +42,7 @@ function draw() {
   
   image(earsImg, 0, 0, 400, 400)
   image(headImg, 0, 0, 400, 400)
-  image(browsImg, 0, 0, 400, 400)
+  if (showBrows && browsImg) image(browsImg, 0, 0, 400, 400);
   image(eyesImg, 0, 0, 400, 400)
   image(nosesImg, 0, 0, 400, 400)
   image(mouthImg, 0, 0, 400, 400)
