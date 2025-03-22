@@ -9,7 +9,7 @@ let selectedImages = {
 };
 
 let scaleSlider; // The scale slider
-let scaleFactor = 1; // Scale factor initialized to 1 (original size)
+let canvasSize = 400; // Initial canvas size
 
 function preload() {
   files = loadJSON("images/image-files.json", () => {
@@ -19,14 +19,14 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(canvasSize, canvasSize);
 }
 
 function draw() {
   background(255);
 
-  // Apply the scale factor to the drawing size
-  let drawSize = 400 * scaleFactor;
+  // Update the canvas size based on the slider value
+  let drawSize = canvasSize * scaleSlider.value(); // New draw size from slider
 
   // Draw images if they exist and apply the scaling
   if (earsImg) image(earsImg, 0, 0, drawSize, drawSize);
@@ -92,7 +92,7 @@ function createUI() {
   // Create the scale slider
   scaleSlider = createSlider(0.05, 5, 1, 0.05); // Min, Max, Default, Step
   scaleSlider.position(10, 680);
-  scaleSlider.input(updateScale); // Update scale on slider change
+  scaleSlider.input(updateCanvasSize); // Update canvas size on slider change
 }
 
 // Helper function to create dropdowns
@@ -145,8 +145,8 @@ function updateDropdowns() {
   beardSelect.selected(selectedImages.beard !== "None" ? selectedImages.beard : "None");
 }
 
-// Update the scale factor based on slider input
-function updateScale() {
-  scaleFactor = scaleSlider.value();
+// Update the canvas size based on slider input
+function updateCanvasSize() {
+  canvasSize = 400 * scaleSlider.value(); // Adjust canvas size based on slider
+  resizeCanvas(canvasSize, canvasSize); // Resize the canvas
 }
-
