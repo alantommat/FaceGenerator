@@ -8,6 +8,9 @@ let selectedImages = {
   ears: null, head: null, brows: null, eyes: null, noses: null, mouth: null, hair: null, beard: null
 };
 
+let scaleSlider; // The scale slider
+let scaleFactor = 1; // Scale factor initialized to 1 (original size)
+
 function preload() {
   files = loadJSON("images/image-files.json", () => {
     createUI(); // Create UI elements after JSON loads
@@ -22,15 +25,18 @@ function setup() {
 function draw() {
   background(255);
 
-  // Draw images if they exist
-  if (earsImg) image(earsImg, 0, 0, 400, 400);
-  if (headImg) image(headImg, 0, 0, 400, 400);
-  if (showBrows && browsImg) image(browsImg, 0, 0, 400, 400);
-  if (eyesImg) image(eyesImg, 0, 0, 400, 400);
-  if (nosesImg) image(nosesImg, 0, 0, 400, 400);
-  if (mouthImg) image(mouthImg, 0, 0, 400, 400);
-  if (showHair && hairImg) image(hairImg, 0, 0, 400, 400);
-  if (showBeard && beardImg) image(beardImg, 0, 0, 400, 400);
+  // Apply the scale factor to the drawing size
+  let drawSize = 400 * scaleFactor;
+
+  // Draw images if they exist and apply the scaling
+  if (earsImg) image(earsImg, 0, 0, drawSize, drawSize);
+  if (headImg) image(headImg, 0, 0, drawSize, drawSize);
+  if (showBrows && browsImg) image(browsImg, 0, 0, drawSize, drawSize);
+  if (eyesImg) image(eyesImg, 0, 0, drawSize, drawSize);
+  if (nosesImg) image(nosesImg, 0, 0, drawSize, drawSize);
+  if (mouthImg) image(mouthImg, 0, 0, drawSize, drawSize);
+  if (showHair && hairImg) image(hairImg, 0, 0, drawSize, drawSize);
+  if (showBeard && beardImg) image(beardImg, 0, 0, drawSize, drawSize);
 }
 
 // Load random images initially
@@ -82,6 +88,11 @@ function createUI() {
   let randomizeBtn = createButton("Randomize");
   randomizeBtn.position(10, 650);
   randomizeBtn.mousePressed(loadRandomImages);
+
+  // Create the scale slider
+  scaleSlider = createSlider(0.05, 5, 1, 0.05); // Min, Max, Default, Step
+  scaleSlider.position(10, 680);
+  scaleSlider.input(updateScale); // Update scale on slider change
 }
 
 // Helper function to create dropdowns
@@ -133,3 +144,9 @@ function updateDropdowns() {
   hairSelect.selected(selectedImages.hair !== "None" ? selectedImages.hair : "None");
   beardSelect.selected(selectedImages.beard !== "None" ? selectedImages.beard : "None");
 }
+
+// Update the scale factor based on slider input
+function updateScale() {
+  scaleFactor = scaleSlider.value();
+}
+
