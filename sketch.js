@@ -22,6 +22,7 @@ function setup() {
 function draw() {
   background(255);
 
+  // Draw images if they exist
   if (earsImg) image(earsImg, 0, 0, 400, 400);
   if (headImg) image(headImg, 0, 0, 400, 400);
   if (showBrows && browsImg) image(browsImg, 0, 0, 400, 400);
@@ -39,7 +40,7 @@ function loadRandomImages() {
   selectedImages.eyes = random(files.eyes);
   selectedImages.noses = random(files.noses);
   selectedImages.mouth = random(files.mouths);
-  
+
   // Randomly decide if brows, hair, or beard should appear
   showBrows = random() < 0.9;
   selectedImages.brows = showBrows ? random(files.brows) : "None";
@@ -56,6 +57,8 @@ function loadRandomImages() {
   eyesImg = loadImage("images/" + selectedImages.eyes);
   nosesImg = loadImage("images/" + selectedImages.noses);
   mouthImg = loadImage("images/" + selectedImages.mouth);
+
+  // Load brows, hair, and beard images only if not "None"
   browsImg = selectedImages.brows !== "None" ? loadImage("images/" + selectedImages.brows) : null;
   hairImg = selectedImages.hair !== "None" ? loadImage("images/" + selectedImages.hair) : null;
   beardImg = selectedImages.beard !== "None" ? loadImage("images/" + selectedImages.beard) : null;
@@ -103,8 +106,16 @@ function createDropdown(label, options, x, y, includeNone = false) {
     } else if (label === "facialhair") {
       showBeard = selected !== "None";
       beardImg = showBeard ? loadImage("images/" + selected) : null;
-    } else {
-      window[label + "Img"] = loadImage("images/" + selected);
+    } else if (label === "ears") {
+      earsImg = selected !== "None" ? loadImage("images/" + selected) : null;
+    } else if (label === "head") {
+      headImg = selected !== "None" ? loadImage("images/" + selected) : null;
+    } else if (label === "eyes") {
+      eyesImg = selected !== "None" ? loadImage("images/" + selected) : null;
+    } else if (label === "noses") {
+      nosesImg = selected !== "None" ? loadImage("images/" + selected) : null;
+    } else if (label === "mouths") {
+      mouthImg = selected !== "None" ? loadImage("images/" + selected) : null;
     }
   });
 
