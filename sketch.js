@@ -3,7 +3,6 @@ let files;
 let earsImg, headImg, browsImg, eyesImg, nosesImg, mouthImg, hairImg, beardImg;
 let earsSelect, headSelect, browsSelect, eyesSelect, nosesSelect, mouthSelect, hairSelect, beardSelect;
 let showBeard, showBrows;
-let randomizeButton;
 
 function preload() {
   files = loadJSON("images/image-files.json", () => {
@@ -29,7 +28,7 @@ function draw() {
   if (showBeard && beardImg) image(beardImg, 0, 0, 400, 400);
 }
 
-// Load random images initially and for the randomize button
+// Load random images initially
 function loadRandomImages() {
   earsImg = loadImage("images/" + random(files.ears));
   headImg = loadImage("images/" + random(files.head));
@@ -39,65 +38,66 @@ function loadRandomImages() {
   hairImg = loadImage("images/" + random(files.hair));
 
   showBeard = random() < 0.25;
-  beardImg = showBeard ? loadImage("images/" + random(files.facialhair)) : null;
+  if (showBeard) {
+    beardImg = loadImage("images/" + random(files.facialhair));
+  }
 
   showBrows = random() < 0.9;
-  browsImg = showBrows ? loadImage("images/" + random(files.brows)) : null;
-
-  // Update dropdown selections
-  earsSelect.selected(earsImg.src.split("/").pop());
-  headSelect.selected(headImg.src.split("/").pop());
-  eyesSelect.selected(eyesImg.src.split("/").pop());
-  nosesSelect.selected(nosesImg.src.split("/").pop());
-  mouthSelect.selected(mouthImg.src.split("/").pop());
-  hairSelect.selected(hairImg.src.split("/").pop());
-
   if (showBrows) {
-    browsSelect.selected(browsImg.src.split("/").pop());
-  } else {
-    browsSelect.selected("None");
-  }
-
-  if (showBeard) {
-    beardSelect.selected(beardImg.src.split("/").pop());
-  } else {
-    beardSelect.selected("None");
+    browsImg = loadImage("images/" + random(files.brows));
   }
 }
 
-// Create dropdowns and buttons for selecting images
+// Create dropdowns for selecting images
 function createUI() {
-  earsSelect = createDropdown("ears", files.ears, 10, 410);
-  headSelect = createDropdown("head", files.head, 10, 440);
-  browsSelect = createDropdown("brows", files.brows, 10, 470, true);
-  eyesSelect = createDropdown("eyes", files.eyes, 10, 500);
-  nosesSelect = createDropdown("noses", files.noses, 10, 530);
-  mouthSelect = createDropdown("mouths", files.mouths, 10, 560);
-  hairSelect = createDropdown("hair", files.hair, 10, 590);
-  beardSelect = createDropdown("facialhair", files.facialhair, 10, 620, true);
+  earsSelect = createSelect();
+  earsSelect.position(10, 410);
+  files.ears.forEach(img => earsSelect.option(img));
+  earsSelect.changed(() => earsImg = loadImage("images/" + earsSelect.value()));
 
-  // Create Randomize Button
-  randomizeButton = createButton("Randomize");
-  randomizeButton.position(10, 650);
-  randomizeButton.mousePressed(loadRandomImages);
-}
+  headSelect = createSelect();
+  headSelect.position(10, 440);
+  files.head.forEach(img => headSelect.option(img));
+  headSelect.changed(() => headImg = loadImage("images/" + headSelect.value()));
 
-// Helper function to create dropdowns
-function createDropdown(label, options, x, y, includeNone = false) {
-  let select = createSelect();
-  select.position(x, y);
-  if (includeNone) select.option("None");
-  options.forEach(img => select.option(img));
-  select.changed(() => {
-    if (label === "brows") {
-      showBrows = select.value() !== "None";
-      browsImg = showBrows ? loadImage("images/" + select.value()) : null;
-    } else if (label === "facialhair") {
-      showBeard = select.value() !== "None";
-      beardImg = showBeard ? loadImage("images/" + select.value()) : null;
+  browsSelect = createSelect();
+  browsSelect.position(10, 470);
+  files.brows.forEach(img => browsSelect.option(img));
+  browsSelect.changed(() => browsImg = loadImage("images/" + browsSelect.value()));
+
+  eyesSelect = createSelect();
+  eyesSelect.position(10, 500);
+  files.eyes.forEach(img => eyesSelect.option(img));
+  eyesSelect.changed(() => eyesImg = loadImage("images/" + eyesSelect.value()));
+
+  nosesSelect = createSelect();
+  nosesSelect.position(10, 530);
+  files.noses.forEach(img => nosesSelect.option(img));
+  nosesSelect.changed(() => nosesImg = loadImage("images/" + nosesSelect.value()));
+
+  mouthSelect = createSelect();
+  mouthSelect.position(10, 560);
+  files.mouths.forEach(img => mouthSelect.option(img));
+  mouthSelect.changed(() => mouthImg = loadImage("images/" + mouthSelect.value()));
+
+  hairSelect = createSelect();
+  hairSelect.position(10, 590);
+  files.hair.forEach(img => hairSelect.option(img));
+  hairSelect.changed(() => hairImg = loadImage("images/" + hairSelect.value()));
+
+  beardSelect = createSelect();
+  beardSelect.position(10, 620);
+  files.facialhair.forEach(img => beardSelect.option(img));
+  beardSelect.option("None"); // Option to remove beard
+  beardSelect.changed(() => {
+    let selected = beardSelect.value();
+    if (selected === "None") {
+      showBeard = false;
+      beardImg = null;
     } else {
-      window[label + "Img"] = loadImage("images/" + select.value());
+      showBeard = true;
+      beardImg = loadImage("images/" + selected);
     }
   });
-  return select;
 }
+
