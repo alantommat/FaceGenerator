@@ -40,8 +40,8 @@ function draw() {
   if (eyesImg) image(eyesImg, 0, 0, imageSize, imageSize);
   if (nosesImg) image(nosesImg, 0, 0, imageSize, imageSize);
   if (mouthImg) image(mouthImg, 0, 0, imageSize, imageSize);
-  if (showHair && hairImg) image(hairImg, 0, 0, imageSize, imageSize);
   if (showBeard && beardImg) image(beardImg, 0, 0, imageSize, imageSize);
+  if (showHair && hairImg) image(hairImg, 0, 0, imageSize, imageSize);
 }
 
 // Load random images initially
