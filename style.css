@@ -5,3 +5,34 @@ html, body {
 canvas {
   display: block;
 }
+
+/* Style dropdowns */
+select {
+  font-size: 16px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  background-color: #f8f8f8;
+  cursor: pointer;
+}
+
+/* Style the button */
+button {
+  font-size: 18px;
+  padding: 8px 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: #3498db;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+/* Style the slider */
+input[type="range"] {
+  width: 300px;
+  accent-color: #3498db;
+}
