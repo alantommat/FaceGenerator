@@ -1,52 +1,103 @@
-let files
+let files;
 
-let earsImg
-let headImg
-let browsImg
-let eyesImg
-let nosesImg
-let mouthImg
-let hairImg
-let beardImg
-let showBeard, showBrows; // Boolean to determine if a beard and brows should be shown
+let earsImg, headImg, browsImg, eyesImg, nosesImg, mouthImg, hairImg, beardImg;
+let earsSelect, headSelect, browsSelect, eyesSelect, nosesSelect, mouthSelect, hairSelect, beardSelect;
+let showBeard, showBrows;
+let randomizeButton;
 
-function preload(){
-  files = loadJSON("images/image-files.json");
-  
+function preload() {
+  files = loadJSON("images/image-files.json", () => {
+    createUI(); // Create dropdowns after JSON loads
+    loadRandomImages(); // Load default random images
+  });
 }
 
 function setup() {
   createCanvas(400, 400);
-  // print(files.ears)
-  earsImg = loadImage("images/" + random(files.ears))
-  headImg = loadImage("images/" + random(files.head))
-  browsImg = loadImage("images/" + random(files.brows))
-  eyesImg = loadImage("images/" + random(files.eyes))
-  nosesImg = loadImage("images/" + random(files.noses))
-  mouthImg = loadImage("images/" + random(files.mouths))
-  hairImg = loadImage("images/" + random(files.hair))
-   // 25% chance to load the beard
-    showBeard = random() < 0.4; 
-    if (showBeard) {
-      beardImg = loadImage("images/" + random(files.facialhair));
-    }
-    // 90% chance to load the brows
-    showBrows = random() < 0.93; 
-    if (showBrows) {
-      browsImg = loadImage("images/" + random(files.brows));
-    }
 }
 
 function draw() {
   background(255);
-  
-  image(earsImg, 0, 0, 400, 400)
-  image(headImg, 0, 0, 400, 400)
+
+  if (earsImg) image(earsImg, 0, 0, 400, 400);
+  if (headImg) image(headImg, 0, 0, 400, 400);
   if (showBrows && browsImg) image(browsImg, 0, 0, 400, 400);
-  image(eyesImg, 0, 0, 400, 400)
-  image(nosesImg, 0, 0, 400, 400)
-  image(mouthImg, 0, 0, 400, 400)
-  image(hairImg, 0, 0, 400, 400)
-  // Only draw the beard if it was selected
+  if (eyesImg) image(eyesImg, 0, 0, 400, 400);
+  if (nosesImg) image(nosesImg, 0, 0, 400, 400);
+  if (mouthImg) image(mouthImg, 0, 0, 400, 400);
+  if (hairImg) image(hairImg, 0, 0, 400, 400);
   if (showBeard && beardImg) image(beardImg, 0, 0, 400, 400);
+}
+
+// Load random images initially and for the randomize button
+function loadRandomImages() {
+  earsImg = loadImage("images/" + random(files.ears));
+  headImg = loadImage("images/" + random(files.head));
+  eyesImg = loadImage("images/" + random(files.eyes));
+  nosesImg = loadImage("images/" + random(files.noses));
+  mouthImg = loadImage("images/" + random(files.mouths));
+  hairImg = loadImage("images/" + random(files.hair));
+
+  showBeard = random() < 0.25;
+  beardImg = showBeard ? loadImage("images/" + random(files.facialhair)) : null;
+
+  showBrows = random() < 0.9;
+  browsImg = showBrows ? loadImage("images/" + random(files.brows)) : null;
+
+  // Update dropdown selections
+  earsSelect.selected(earsImg.src.split("/").pop());
+  headSelect.selected(headImg.src.split("/").pop());
+  eyesSelect.selected(eyesImg.src.split("/").pop());
+  nosesSelect.selected(nosesImg.src.split("/").pop());
+  mouthSelect.selected(mouthImg.src.split("/").pop());
+  hairSelect.selected(hairImg.src.split("/").pop());
+
+  if (showBrows) {
+    browsSelect.selected(browsImg.src.split("/").pop());
+  } else {
+    browsSelect.selected("None");
+  }
+
+  if (showBeard) {
+    beardSelect.selected(beardImg.src.split("/").pop());
+  } else {
+    beardSelect.selected("None");
+  }
+}
+
+// Create dropdowns and buttons for selecting images
+function createUI() {
+  earsSelect = createDropdown("ears", files.ears, 10, 410);
+  headSelect = createDropdown("head", files.head, 10, 440);
+  browsSelect = createDropdown("brows", files.brows, 10, 470, true);
+  eyesSelect = createDropdown("eyes", files.eyes, 10, 500);
+  nosesSelect = createDropdown("noses", files.noses, 10, 530);
+  mouthSelect = createDropdown("mouths", files.mouths, 10, 560);
+  hairSelect = createDropdown("hair", files.hair, 10, 590);
+  beardSelect = createDropdown("facialhair", files.facialhair, 10, 620, true);
+
+  // Create Randomize Button
+  randomizeButton = createButton("Randomize");
+  randomizeButton.position(10, 650);
+  randomizeButton.mousePressed(loadRandomImages);
+}
+
+// Helper function to create dropdowns
+function createDropdown(label, options, x, y, includeNone = false) {
+  let select = createSelect();
+  select.position(x, y);
+  if (includeNone) select.option("None");
+  options.forEach(img => select.option(img));
+  select.changed(() => {
+    if (label === "brows") {
+      showBrows = select.value() !== "None";
+      browsImg = showBrows ? loadImage("images/" + select.value()) : null;
+    } else if (label === "facialhair") {
+      showBeard = select.value() !== "None";
+      beardImg = showBeard ? loadImage("images/" + select.value()) : null;
+    } else {
+      window[label + "Img"] = loadImage("images/" + select.value());
+    }
+  });
+  return select;
 }
