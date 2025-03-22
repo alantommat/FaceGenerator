@@ -26,7 +26,7 @@ function setup() {
   mouthImg = loadImage("images/" + random(files.mouths))
   hairImg = loadImage("images/" + random(files.hair))
    // 25% chance to load the beard
-    showBeard = random() < 0.25; 
+    showBeard = random() < 0.35; 
     if (showBeard) {
       beardImg = loadImage("images/" + random(files.facialhair));
     }
