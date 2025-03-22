@@ -2,6 +2,7 @@ let files;
 let earsImg, headImg, browsImg, eyesImg, nosesImg, mouthImg, hairImg, beardImg;
 let earsSelect, headSelect, browsSelect, eyesSelect, nosesSelect, mouthSelect, hairSelect, beardSelect;
 let showBeard = false, showBrows = true, showHair = true;
+let sizeSlider, canvasSize = 400;
 
 // Store the selected filenames separately
 let selectedImages = {
@@ -10,26 +11,27 @@ let selectedImages = {
 
 function preload() {
   files = loadJSON("images/image-files.json", () => {
-    createUI(); // Create UI elements after JSON loads
-    loadRandomImages(); // Load initial random images
+    createUI();
+    loadRandomImages();
   });
 }
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(canvasSize, canvasSize);
 }
 
 function draw() {
   background(255);
+  resizeCanvas(canvasSize, canvasSize); // Resize the canvas dynamically
 
-  if (earsImg) image(earsImg, 0, 0, 400, 400);
-  if (headImg) image(headImg, 0, 0, 400, 400);
-  if (showBrows && browsImg) image(browsImg, 0, 0, 400, 400);
-  if (eyesImg) image(eyesImg, 0, 0, 400, 400);
-  if (nosesImg) image(nosesImg, 0, 0, 400, 400);
-  if (mouthImg) image(mouthImg, 0, 0, 400, 400);
-  if (showHair && hairImg) image(hairImg, 0, 0, 400, 400);
-  if (showBeard && beardImg) image(beardImg, 0, 0, 400, 400);
+  if (earsImg) image(earsImg, 0, 0, canvasSize, canvasSize);
+  if (headImg) image(headImg, 0, 0, canvasSize, canvasSize);
+  if (showBrows && browsImg) image(browsImg, 0, 0, canvasSize, canvasSize);
+  if (eyesImg) image(eyesImg, 0, 0, canvasSize, canvasSize);
+  if (nosesImg) image(nosesImg, 0, 0, canvasSize, canvasSize);
+  if (mouthImg) image(mouthImg, 0, 0, canvasSize, canvasSize);
+  if (showHair && hairImg) image(hairImg, 0, 0, canvasSize, canvasSize);
+  if (showBeard && beardImg) image(beardImg, 0, 0, canvasSize, canvasSize);
 }
 
 // Load random images initially
@@ -39,8 +41,7 @@ function loadRandomImages() {
   selectedImages.eyes = random(files.eyes);
   selectedImages.noses = random(files.noses);
   selectedImages.mouth = random(files.mouths);
-  
-  // Randomly decide if brows, hair, or beard should appear
+
   showBrows = random() < 0.9;
   selectedImages.brows = showBrows ? random(files.brows) : "None";
 
@@ -50,7 +51,6 @@ function loadRandomImages() {
   showBeard = random() < 0.25;
   selectedImages.beard = showBeard ? random(files.facialhair) : "None";
 
-  // Load images
   earsImg = loadImage("images/" + selectedImages.ears);
   headImg = loadImage("images/" + selectedImages.head);
   eyesImg = loadImage("images/" + selectedImages.eyes);
@@ -60,7 +60,6 @@ function loadRandomImages() {
   hairImg = selectedImages.hair !== "None" ? loadImage("images/" + selectedImages.hair) : null;
   beardImg = selectedImages.beard !== "None" ? loadImage("images/" + selectedImages.beard) : null;
 
-  // Update dropdown selections
   updateDropdowns();
 }
 
@@ -79,6 +78,13 @@ function createUI() {
   let randomizeBtn = createButton("Randomize");
   randomizeBtn.position(10, 650);
   randomizeBtn.mousePressed(loadRandomImages);
+
+  // Add size slider
+  sizeSlider = createSlider(200, 2000, 400, 50);
+  sizeSlider.position(10, 680);
+  sizeSlider.input(() => {
+    canvasSize = sizeSlider.value();
+  });
 }
 
 // Helper function to create dropdowns
@@ -86,7 +92,7 @@ function createDropdown(label, options, x, y, includeNone = false) {
   let select = createSelect();
   select.position(x, y);
 
-  if (includeNone) select.option("None"); // Add "None" option where needed
+  if (includeNone) select.option("None");
 
   options.forEach(img => select.option(img));
 
