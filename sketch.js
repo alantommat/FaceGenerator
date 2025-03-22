@@ -8,6 +8,7 @@ let nosesImg
 let mouthImg
 let hairImg
 let beardImg
+let showBeard; // Boolean to determine if a beard should be shown
 
 function preload(){
   files = loadJSON("images/image-files.json");
@@ -24,7 +25,11 @@ function setup() {
   nosesImg = loadImage("images/" + random(files.noses))
   mouthImg = loadImage("images/" + random(files.mouths))
   hairImg = loadImage("images/" + random(files.hair))
-  beardImg = loadImage("images/" + random(files.facialhair))
+   // 25% chance to load the beard
+    showBeard = random() < 0.25; 
+    if (showBeard) {
+      beardImg = loadImage("images/" + random(files.facialhair));
+    }
   
 }
 
@@ -38,5 +43,6 @@ function draw() {
   image(nosesImg, 0, 0, 400, 400)
   image(mouthImg, 0, 0, 400, 400)
   image(hairImg, 0, 0, 400, 400)
-  image(beardImg, 0, 0, 400, 400)
+  // Only draw the beard if it was selected
+  if (showBeard && beardImg) image(beardImg, 0, 0, 400, 400);
 }
