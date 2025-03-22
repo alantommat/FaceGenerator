@@ -52,14 +52,50 @@ function loadRandomImages() {
   showBeard = random() < 0.25;
   selectedImages.beard = showBeard ? random(files.facialhair) : "None";
 
-  earsImg = loadImage("images/" + selectedImages.ears);
-  headImg = loadImage("images/" + selectedImages.head);
-  eyesImg = loadImage("images/" + selectedImages.eyes);
-  nosesImg = loadImage("images/" + selectedImages.noses);
-  mouthImg = loadImage("images/" + selectedImages.mouth);
-  browsImg = selectedImages.brows !== "None" ? loadImage("images/" + selectedImages.brows) : null;
-  hairImg = selectedImages.hair !== "None" ? loadImage("images/" + selectedImages.hair) : null;
-  beardImg = selectedImages.beard !== "None" ? loadImage("images/" + selectedImages.beard) : null;
+  console.log("Loading images...");
+
+  earsImg = loadImage("images/" + selectedImages.ears, () => {
+    console.log("Ears image loaded: " + selectedImages.ears);
+  }, () => {
+    console.log("Error loading ears image: " + selectedImages.ears);
+  });
+
+  headImg = loadImage("images/" + selectedImages.head, () => {
+    console.log("Head image loaded: " + selectedImages.head);
+  }, () => {
+    console.log("Error loading head image: " + selectedImages.head);
+  });
+
+  eyesImg = loadImage("images/" + selectedImages.eyes, () => {
+    console.log("Eyes image loaded: " + selectedImages.eyes);
+  }, () => {
+    console.log("Error loading eyes image: " + selectedImages.eyes);
+  });
+
+  nosesImg = loadImage("images/" + selectedImages.noses, () => {
+    console.log("Noses image loaded: " + selectedImages.noses);
+  }, () => {
+    console.log("Error loading noses image: " + selectedImages.noses);
+  });
+
+  mouthImg = loadImage("images/" + selectedImages.mouth, () => {
+    console.log("Mouth image loaded: " + selectedImages.mouth);
+  }, () => {
+    console.log("Error loading mouth image: " + selectedImages.mouth);
+  });
+
+  // For brows, hair, and beard, load the image only if it's not "None"
+  browsImg = selectedImages.brows !== "None" ? loadImage("images/" + selectedImages.brows, () => {
+    console.log("Brows image loaded: " + selectedImages.brows);
+  }) : null;
+
+  hairImg = selectedImages.hair !== "None" ? loadImage("images/" + selectedImages.hair, () => {
+    console.log("Hair image loaded: " + selectedImages.hair);
+  }) : null;
+
+  beardImg = selectedImages.beard !== "None" ? loadImage("images/" + selectedImages.beard, () => {
+    console.log("Beard image loaded: " + selectedImages.beard);
+  }) : null;
 
   updateDropdowns();
 }
@@ -113,15 +149,15 @@ function createDropdown(label, options, x, y, includeNone = false) {
       showBeard = selected !== "None";
       beardImg = showBeard ? loadImage("images/" + selected) : null;
     } else if (label === "ears") {
-      earsImg = loadImage("images/" + selected);
+      earsImg = selected !== "None" ? loadImage("images/" + selected) : null;
     } else if (label === "head") {
-      headImg = loadImage("images/" + selected);
+      headImg = selected !== "None" ? loadImage("images/" + selected) : null;
     } else if (label === "eyes") {
-      eyesImg = loadImage("images/" + selected);
+      eyesImg = selected !== "None" ? loadImage("images/" + selected) : null;
     } else if (label === "noses") {
-      nosesImg = loadImage("images/" + selected);
+      nosesImg = selected !== "None" ? loadImage("images/" + selected) : null;
     } else if (label === "mouths") {
-      mouthImg = loadImage("images/" + selected);
+      mouthImg = selected !== "None" ? loadImage("images/" + selected) : null;
     }
   });
 
