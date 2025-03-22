@@ -9,7 +9,6 @@ let selectedImages = {
 };
 
 let scaleSlider; // The scale slider
-let canvasSize = 400; // Initial canvas size
 
 function preload() {
   files = loadJSON("images/image-files.json", () => {
@@ -19,7 +18,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(canvasSize, canvasSize);
+  createCanvas(400, 400);
 }
 
 function draw() {
@@ -27,19 +26,19 @@ function draw() {
 
   // Get the scale factor from the slider
   let scaleFactor = scaleSlider.value();
+  
+  // Apply scaling for everything being drawn
+  scale(scaleFactor);
 
-  // Calculate the draw size for images
-  let drawSize = canvasSize * scaleFactor;
-
-  // Draw images and scale them to fit within the canvas
-  if (earsImg) image(earsImg, 0, 0, drawSize, drawSize);
-  if (headImg) image(headImg, 0, 0, drawSize, drawSize);
-  if (showBrows && browsImg) image(browsImg, 0, 0, drawSize, drawSize);
-  if (eyesImg) image(eyesImg, 0, 0, drawSize, drawSize);
-  if (nosesImg) image(nosesImg, 0, 0, drawSize, drawSize);
-  if (mouthImg) image(mouthImg, 0, 0, drawSize, drawSize);
-  if (showHair && hairImg) image(hairImg, 0, 0, drawSize, drawSize);
-  if (showBeard && beardImg) image(beardImg, 0, 0, drawSize, drawSize);
+  // Draw images as usual
+  if (earsImg) image(earsImg, 0, 0, 400, 400);
+  if (headImg) image(headImg, 0, 0, 400, 400);
+  if (showBrows && browsImg) image(browsImg, 0, 0, 400, 400);
+  if (eyesImg) image(eyesImg, 0, 0, 400, 400);
+  if (nosesImg) image(nosesImg, 0, 0, 400, 400);
+  if (mouthImg) image(mouthImg, 0, 0, 400, 400);
+  if (showHair && hairImg) image(hairImg, 0, 0, 400, 400);
+  if (showBeard && beardImg) image(beardImg, 0, 0, 400, 400);
 }
 
 // Load random images initially
@@ -95,7 +94,6 @@ function createUI() {
   // Create the scale slider
   scaleSlider = createSlider(0.05, 5, 1, 0.05); // Min, Max, Default, Step
   scaleSlider.position(10, 680);
-  scaleSlider.input(updateCanvasSize); // Update canvas size on slider change
 }
 
 // Helper function to create dropdowns
@@ -146,10 +144,4 @@ function updateDropdowns() {
   browsSelect.selected(selectedImages.brows !== "None" ? selectedImages.brows : "None");
   hairSelect.selected(selectedImages.hair !== "None" ? selectedImages.hair : "None");
   beardSelect.selected(selectedImages.beard !== "None" ? selectedImages.beard : "None");
-}
-
-// Update the canvas size based on slider input
-function updateCanvasSize() {
-  canvasSize = 400 * scaleSlider.value(); // Adjust canvas size based on slider
-  resizeCanvas(canvasSize, canvasSize); // Resize the canvas
 }
