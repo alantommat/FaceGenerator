@@ -91,12 +91,12 @@ function createUI() {
 
   // Add "Randomize" button
   let randomizeBtn = createButton("Randomize");
-  randomizeBtn.position(10, 650);
+  randomizeBtn.position(10, 680);
   randomizeBtn.mousePressed(loadRandomImages);
 
   // Create the scale slider
   scaleSlider = createSlider(0.05, 5, 1, 0.05); // Min, Max, Default, Step
-  scaleSlider.position(10, 680);
+  scaleSlider.position(10, 710);
 }
 
 // Helper function to create dropdowns
