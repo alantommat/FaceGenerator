@@ -45,7 +45,12 @@
         "Brows-43.png",
         "Brows-44.png",
         "Brows-45.png",
-        "Brows-46.png"   
+        "Brows-46.png",
+        "Brows-47.png",
+        "Brows-48.png",
+        "Brows-49.png",
+        "Brows-50.png",
+        "Brows-51.png"
     ],
     "ears": [
         "Ears-1.png",
@@ -66,7 +71,9 @@
         "Ears-16.png",
         "Ears-17.png",
         "Ears-18.png",
-        "Ears-19.png"
+        "Ears-19.png",
+        "Ears-20.png",
+        "Ears-21.png"
     ],
     "eyes": [
         "Eyes-2.png",
@@ -115,7 +122,23 @@
         "Eyes-45.png",
         "Eyes-46.png",
         "Eyes-47.png",
-        "Eyes-48.png"
+        "Eyes-48.png",
+        "Eyes-49.png",
+        "Eyes-50.png",
+        "Eyes-51.png",
+        "Eyes-52.png",
+        "Eyes-53.png",
+        "Eyes-54.png",
+        "Eyes-55.png",
+        "Eyes-56.png",
+        "Eyes-57.png",
+        "Eyes-58.png",
+        "Eyes-59.png",
+        "Eyes-60.png",
+        "Eyes-61.png",
+        "Eyes-62.png",
+        "Eyes-63.png"
+        
     ],
     "facialhair": [
         "Beards-1.png",
@@ -162,7 +185,9 @@
         "Beards-42.png",
         "Beards-43.png",
         "Beards-44.png",
-        "Beards-45.png"
+        "Beards-45.png",
+        "Beards-46.png",
+        "Beards-47.png"
     ],
     "hair": [
         "Hair-1.png",
@@ -278,7 +303,22 @@
         "Hair-111.png",
         "Hair-112.png",
         "Hair-113.png",
-        "Hair-114.png"
+        "Hair-114.png",
+        "Hair-115.png",
+        "Hair-116.png",
+        "Hair-117.png",
+        "Hair-118.png",
+        "Hair-119.png",
+        "Hair-120.png",
+        "Hair-121.png",
+        "Hair-122.png",
+        "Hair-123.png",
+        "Hair-124.png",
+        "Hair-125.png",
+        "Hair-126.png",
+        "Hair-127.png",
+        "Hair-128.png",
+        "Hair-129.png"
     ],
     "head": [
         "Heads-1.png",
@@ -332,7 +372,15 @@
         "Mouths-43.png",
         "Mouths-44.png",
         "Mouths-45.png",
-        "Mouths-46.png"
+        "Mouths-46.png",
+        "Mouths-47.png",
+        "Mouths-48.png",
+        "Mouths-49.png",
+        "Mouths-50.png",
+        "Mouths-51.png",
+        "Mouths-52.png",
+        "Mouths-53.png",
+        "Mouths-54.png"
     ],
     "noses": [
         "Noses-1.png",
@@ -367,6 +415,18 @@
         "Noses-39.png",
         "Noses-40.png",
         "Noses-41.png",
-        "Noses-42.png"
+        "Noses-42.png",
+        "Noses-43.png",
+        "Noses-44.png",
+        "Noses-45.png",
+        "Noses-46.png",
+        "Noses-47.png",
+        "Noses-48.png",
+        "Noses-49.png",
+        "Noses-50.png",
+        "Noses-51.png",
+        "Noses-52.png",
+        "Noses-53.png",
+        "Noses-54.png"
     ]
 }
